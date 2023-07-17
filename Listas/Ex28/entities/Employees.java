@@ -18,7 +18,7 @@ public class Employees {
         return id;
     }
 
-    public void setId(Integer id) {
+    private void setId(Integer id) {
         this.id = id;
     }
 
@@ -34,13 +34,13 @@ public class Employees {
         return salary;
     }
 
-    public void setSalary(Double salary) {
+    private void setSalary(Double salary) {
         this.salary = salary;
     }
 
-    public void increaseSalary(double percentage) {
-		salary += salary * percentage / 100.0;
-	}
+    public void increaseSalary(double percentage){
+        setSalary(getSalary() + (getSalary() * (percentage / 100)));
+    }
 
     @Override
 	public String toString() {

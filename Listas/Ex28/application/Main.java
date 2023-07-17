@@ -12,56 +12,48 @@ public class Main {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
 
+        System.out.print("How many employees will be registered? ");
+        int quant = sc.nextInt();
+        sc.nextLine();
+
         List<Employees> list = new ArrayList<>();
 
-        System.out.print("How many employess will be registeres? ");
-        int rep = sc.nextInt();
-
-        for (int i = 0; i < rep; i++) {
-
-            System.out.println();
-            System.out.println("Emplyoee #" + (i+1) + ":");
+        for (int i = 0; i < quant; i++) {
+            System.out.println("\nEmplyoee #" + (i +1));
             System.out.print("Id: ");
-			int id = sc.nextInt();
-            while (hasId(list, id)) {
-				System.out.println("Id already taken! Try again: ");
-				id = sc.nextInt();
-			}
+            int id = sc.nextInt();
+            sc.nextLine();
+
             System.out.print("Name: ");
-			sc.nextLine();
-			String name = sc.nextLine();
-			System.out.print("Salary: ");
-			Double salary = sc.nextDouble();
+            String name = sc.nextLine();
 
-            Employees emp = new Employees(id, name, salary);
+            System.out.print("Salary: ");
+            double salary = sc.nextDouble();
 
-            list.add(emp);
+            Employees func = new Employees(id, name, salary);
+
+            list.add(func);
         }
 
-        System.out.println();
-		System.out.print("Enter the employee id that will have salary increase : ");
-		int idsalary = sc.nextInt();
+        System.out.print("\nEnter the employee id that will have salary increase: ");
+        int idVerific = sc.nextInt();
 
-        Employees emp = list.stream().filter(x -> x.getId() == idsalary).findFirst().orElse(null);
-        if (emp == null){
+        Employees result = list.stream().filter( x -> x.getId() == idVerific).findFirst().orElse(null);
+
+        if ( result == null){
             System.out.println("This id does not exist!");
         } else {
             System.out.print("Enter the percentage: ");
-            double percent = sc.nextDouble();
-            emp.increaseSalary(percent);
+            double percentage = sc.nextDouble();
+            result.increaseSalary(percentage);
         }
 
-        System.out.println();
-		System.out.println("List of employees:");
-		for (Employees e : list) {
-			System.out.println(e);
-		}
+        System.out.println("\nList of employees:");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
 
         sc.close();
     }
 
-    public static boolean hasId(List<Employees> list, int id){
-        Employees emp = list.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
-        return emp != null;
-    }
 }
